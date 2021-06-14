@@ -1,8 +1,6 @@
 package locations;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -45,12 +43,19 @@ public class LocationTest<locationParser> {
 
     }
 
-    @Test
-    @DisplayName("To test checking whether location is on equator")
-    void testIsOnEquator() {
+    private Location[] locations = {new Location("A", 0, 3),
+            new Location("B", 0, 5),
+            new Location("C", 3, 5)};
 
-        assertTrue(locationParser.isOnEquator(new Location("Budapest", 0, 19.040235)));
-        assertFalse(locationParser.isOnEquator(new Location("Budapest", 47.497912, 19.040235)));
+    private boolean[] results = {true, true, false};
+
+
+    @RepeatedTest(value = 3,
+            name = "To test checking whether location is on equator {currentRepetition} / {totalRepetitions}")
+    void testIsOnEquator(RepetitionInfo repetitionInfo) {
+
+        assertEquals(results[repetitionInfo.getCurrentRepetition()-1],
+                locationParser.isOnEquator(locations[repetitionInfo.getCurrentRepetition()-1]));
     }
 
     @Test
