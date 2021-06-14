@@ -8,6 +8,14 @@ public class Location {
     private double lon;
 
     public Location(String name, double lat, double lon) {
+        if (lat < -90 || lat > 90) {
+            throw new IllegalArgumentException("Not correct latitude");
+        }
+
+        if (lon < -180 || lon > 180) {
+            throw new IllegalArgumentException("Not correct longitude");
+        }
+
         this.name = name;
         this.lat = lat;
         this.lon = lon;
@@ -37,7 +45,7 @@ public class Location {
         this.lon = lon;
     }
 
-    public double distanceFrom(Location another){
+    public double distanceFrom(Location another) {
         final int R = 6371; // Radius of the earth
 
         double latDistance = Math.toRadians(another.getLat() - lat);

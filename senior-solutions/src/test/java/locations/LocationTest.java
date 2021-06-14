@@ -35,9 +35,9 @@ public class LocationTest<locationParser> {
         Location location2 = locationParser.parse("Budapest,47.497912,19.040235");
 
         assertAll(
-                ()-> assertEquals("Budapest", location.getName()),
-                ()-> assertEquals(47.497912, location.getLat()),
-                ()-> assertEquals(19.040235, location.getLon())
+                () -> assertEquals("Budapest", location.getName()),
+                () -> assertEquals(47.497912, location.getLat()),
+                () -> assertEquals(19.040235, location.getLon())
 
         );
 
@@ -66,7 +66,25 @@ public class LocationTest<locationParser> {
     void testDistanceFrom() {
 
         assertEquals(1449000,
-                new Location("London",51.507351,-0.127758)
-                        .distanceFrom(new Location("Budapest", 47.497912, 19.040235)),1000);
+                new Location("London", 51.507351, -0.127758)
+                        .distanceFrom(new Location("Budapest", 47.497912, 19.040235)), 1000);
+    }
+
+    @Test
+    @DisplayName("To test inputs for locations")
+    void testLocationInputs() {
+
+        IllegalArgumentException iae =
+                assertThrows(IllegalArgumentException.class, () -> new Location("", -100, -100));
+        IllegalArgumentException iae2 =
+                assertThrows(IllegalArgumentException.class, () -> new Location("", 100, -100));
+        assertEquals("Not correct latitude", iae.getMessage());
+        assertEquals("Not correct latitude", iae2.getMessage());
+        IllegalArgumentException iae3 =
+                assertThrows(IllegalArgumentException.class, () -> new Location("", -90, -190));
+        IllegalArgumentException iae4 =
+                assertThrows(IllegalArgumentException.class, () -> new Location("", 90, 190));
+        assertEquals("Not correct longitude", iae3.getMessage());
+        assertEquals("Not correct longitude", iae4.getMessage());
     }
 }
