@@ -5,11 +5,11 @@ import java.util.List;
 
 public class LocationOperators {
 
-    public List<Location> filterOnNorth(List<Location> locations){
+    public List<Location> filterOnNorth(List<Location> locations) {
         List<Location> locationsAtNorth = new ArrayList<>();
 
-        for (Location l : locations){
-            if (l.getLat()>0){
+        for (Location l : locations) {
+            if (l.getLat() > 0) {
                 locationsAtNorth.add(l);
             }
         }

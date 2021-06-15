@@ -8,7 +8,7 @@ import java.util.List;
 
 public class LocationService {
 
-    public List<Location> readLocationsFromCsv (Path path) throws IOException {
+    public List<Location> readLocationsFromCsv(Path path) throws IOException {
         List<Location> locations = new ArrayList<>();
 
         Files.readString(path).split(",");

@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class LocationTest<locationParser> {
@@ -50,23 +51,32 @@ public class LocationTest<locationParser> {
 
     }
 
-    private Object[][] values = {{new Location("A", 0, 3),true},
-            {new Location("B", 0, 5),true},
-            {new Location("C", 3, 5),false}};
+    private Object[][] values = {{new Location("A", 0, 3), true},
+            {new Location("B", 0, 5), true},
+            {new Location("C", 3, 5), false}};
 
 
     @RepeatedTest(value = 3,
             name = "To test checking whether location is on equator {currentRepetition} / {totalRepetitions}")
     void testIsOnEquator(RepetitionInfo repetitionInfo) {
 
-        assertEquals(values[repetitionInfo.getCurrentRepetition()-1][1],
-                locationParser.isOnEquator((Location) values[repetitionInfo.getCurrentRepetition()-1][0]));
+        assertEquals(values[repetitionInfo.getCurrentRepetition() - 1][1],
+                locationParser.isOnEquator((Location) values[repetitionInfo.getCurrentRepetition() - 1][0]));
+    }
+
+    @TestFactory
+    Stream<DynamicTest> testIsOnEquatorWithDynamicTest() {
+        return Stream.of(new Object[][]{{new Location("A", 0, 3), true},
+                {new Location("B", 0, 5), true},
+                {new Location("C", 3, 5), false}})
+                .map(item -> dynamicTest("To test checking whether location is on equator - " + item[1],
+                        () -> assertEquals(item[1], locationParser.isOnEquator((Location) item[0]))));
     }
 
     static Stream<Arguments> isPrimeMeridian() {
         return Stream.of(
-                arguments(new Location("Budapest", 47.497912, 0),true),
-                arguments(new Location("Budapest", 47.497912, 19.040235),false)
+                arguments(new Location("Budapest", 47.497912, 0), true),
+                arguments(new Location("Budapest", 47.497912, 19.040235), false)
         );
     }
 
@@ -74,15 +84,15 @@ public class LocationTest<locationParser> {
     @MethodSource("isPrimeMeridian")
     void testIsOnPrimeMeridian(Location location, boolean isOnPrimeMeridian) {
 
-        assertEquals(isOnPrimeMeridian,locationParser.isOnPrimeMeridian(location));
+        assertEquals(isOnPrimeMeridian, locationParser.isOnPrimeMeridian(location));
     }
 
     @ParameterizedTest(name = "To test calculating distance {0}-{1} vs {2}-{3} is {4}")
     @CsvFileSource(resources = "/distances.csv")
-    void testDistanceFromCSV(double lat , double lon, double lat2, double lon2, double distance){
+    void testDistanceFromCSV(double lat, double lon, double lat2, double lon2, double distance) {
 
-        assertEquals(distance,new Location("",lat,lon)
-                .distanceFrom(new Location("",lat2,lon2)),1000);
+        assertEquals(distance, new Location("", lat, lon)
+                .distanceFrom(new Location("", lat2, lon2)), 1000);
     }
 
     @Test

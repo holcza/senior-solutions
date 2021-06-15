@@ -12,7 +12,7 @@ public class LocationNestedTest {
     LocationParser locationParser;
 
     @BeforeEach
-    void init(){
+    void init() {
         locationParser = new LocationParser();
     }
 
@@ -22,7 +22,7 @@ public class LocationNestedTest {
         Location location;
 
         @BeforeEach
-        void init(){
+        void init() {
             location = locationParser.parse("Budapest,0,0");
         }
 
@@ -43,7 +43,7 @@ public class LocationNestedTest {
         Location location;
 
         @BeforeEach
-        void init(){
+        void init() {
             location = locationParser.parse("Budapest,47.497912,19.040235");
         }
 
