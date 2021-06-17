@@ -1,18 +1,23 @@
 package locations;
 
+import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.junit.jupiter.SoftAssertionsExtension;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.util.concurrent.locks.Condition;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-public class LocationTest<locationParser> {
+@ExtendWith(SoftAssertionsExtension.class)
+public class LocationTest {
 
     LocationParser locationParser;
 
@@ -120,5 +125,18 @@ public class LocationTest<locationParser> {
                 assertThrows(IllegalArgumentException.class, () -> new Location("", 90, 190));
         assertEquals("Not correct longitude", iae3.getMessage());
         assertEquals("Not correct longitude", iae4.getMessage());
+    }
+
+
+    @Test
+    @DisplayName("To test whether location has zero coordinate")
+    void testZeroCoordinate(SoftAssertions softly) {
+        org.assertj.core.api.Condition<Location> zeroCoordinate =
+                new org.assertj.core.api.Condition<>(e-> e.getLon()==0 || e.getLat()==0
+                        , "One of the coordinates should be zero");
+        Location location = new Location("A",0,12);
+        Location location2 = new Location("B",3,56);
+        softly.assertThat(location).has(zeroCoordinate);
+        softly.assertThat(location2).doesNotHave(zeroCoordinate);
     }
 }

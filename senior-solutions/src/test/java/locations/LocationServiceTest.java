@@ -50,11 +50,11 @@ public class LocationServiceTest {
         List<Location> locations = locationService.readLocationsFromCsv(Path.of("src/test/resources/locations.csv"));
         softly.assertThat(locations)
                 .hasSize(4)
-                .extracting(Location::getName,Location::getLat,Location::getLon)
-                .contains(tuple("B",47.497912,19.040235),
-                        tuple("D",78.245,55.678));
+                .extracting(Location::getName, Location::getLat, Location::getLon)
+                .contains(tuple("B", 47.497912, 19.040235),
+                        tuple("D", 78.245, 55.678));
         softly.assertThat(locations)
-                .filteredOn(e->e.getName().equals("A"))
+                .filteredOn(e -> e.getName().equals("A"))
                 .extracting(Location::getLat)
                 .containsOnly(51.507351);
     }
