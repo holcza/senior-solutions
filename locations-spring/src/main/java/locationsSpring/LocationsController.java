@@ -18,8 +18,8 @@ public class LocationsController {
 
     @GetMapping("/")
     @ResponseBody
-    public List<Location> getLocations() {
-        return locations;
+    public String getLocations() {
+        return locations.toString();
     }
 
 }
