@@ -8,14 +8,14 @@ import java.util.List;
 @RestController
 public class LocationsController {
 
-    List<Location> locationList;
+    LocationsService locationsService;
 
-    public LocationsController(List<Location> locationList) {
-        this.locationList = locationList;
+    public LocationsController(LocationsService locationsService) {
+        this.locationsService = locationsService;
     }
 
     @GetMapping("/locations")
     public String getLocations(){
-        return locationList.toString();
+        return locationsService.getLocations().toString();
     }
 }
