@@ -26,12 +26,15 @@ class LocationsControllerTest {
 
     @Test
     void getLocations() {
-        when(locationsService.getLocations()).thenReturn(List.of(
-                new Location(1L,"A",23,34)
-        ));
+
+        List<LocationDto> locationDtos = List.of(
+                new LocationDto(1L,"A",23,34)
+        );
+
+        when(locationsService.getLocations()).thenReturn(locationDtos);
 
         assertThat(locationsController.getLocations()).isEqualTo(
-                "[Location{id=1, name='A', lat=23.0, lon=34.0}]"
+                locationDtos
         );
 
     }
