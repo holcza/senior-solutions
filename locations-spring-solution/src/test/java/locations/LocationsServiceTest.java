@@ -8,6 +8,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,7 +25,7 @@ class LocationsServiceTest {
     @Test
     void getLocations() {
 
-        List<LocationDto> locations = locationsService.getLocations();
+        List<LocationDto> locations = locationsService.getLocations(Optional.empty());
 
         assertThat(locations).extracting(LocationDto::getName)
                 .containsOnly("A","B","C");

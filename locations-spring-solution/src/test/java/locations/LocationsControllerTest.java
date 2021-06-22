@@ -6,10 +6,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,9 +28,9 @@ class LocationsControllerTest {
                 new LocationDto(1L,"A",23,34)
         );
 
-        when(locationsService.getLocations()).thenReturn(locationDtos);
+        when(locationsService.getLocations(Optional.of("A"))).thenReturn(locationDtos);
 
-        assertThat(locationsController.getLocations()).isEqualTo(
+        assertThat(locationsController.getLocations(Optional.of("A"))).isEqualTo(
                 locationDtos
         );
 
