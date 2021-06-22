@@ -3,6 +3,14 @@ GET localhost:8080/locations
 Accept: application/json
 
 ###
+GET localhost:8080/locations/2
+Accept: application/json
+
+###
+GET localhost:8080/locations/6
+Accept: application/json
+
+###
 POST localhost:8080/locations
 Content-Type: application/json
 Accept: application/json
@@ -25,4 +33,18 @@ Accept: application/json
 }
 
 ###
+PUT localhost:8080/locations/6
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "B",
+  "lat": 5.0,
+  "lon": 72.0
+}
+
+###
 DELETE localhost:8080/locations/1
+
+###
+DELETE localhost:8080/locations/6
