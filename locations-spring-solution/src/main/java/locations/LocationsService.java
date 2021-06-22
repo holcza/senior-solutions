@@ -20,7 +20,7 @@ public class LocationsService {
             new Location(1L,"A",23,67),
             new Location(2L,"B",56,72),
             new Location(3L,"C",4,-67)
-    )));;
+    )));
 
     public LocationsService(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
