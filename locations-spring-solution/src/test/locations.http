@@ -8,14 +8,20 @@ Content-Type: application/json
 Accept: application/json
 
 {
+  "name": "D",
+  "lat": 6.0,
+  "lon": -7.0
 }
 
 ###
-PUT localhost:8080/locations/1
+PUT localhost:8080/locations/2
 Content-Type: application/json
 Accept: application/json
 
 {
+  "name": "B",
+  "lat": 5.0,
+  "lon": 72.0
 }
 
 ###

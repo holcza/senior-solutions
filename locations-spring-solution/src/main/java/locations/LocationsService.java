@@ -32,7 +32,7 @@ public class LocationsService {
         Type targetListType = new TypeToken<List<LocationDto>>() {
         }.getType();
         List<Location> locationsFiltered = locations.stream()
-                .filter(location -> name.isEmpty() || location.getName().equals(name))
+                .filter(location -> name.isEmpty() || location.getName().equals(name.get()))
                 .collect(Collectors.toList());
         return modelMapper.map(locationsFiltered, targetListType);
     }
@@ -49,6 +49,8 @@ public class LocationsService {
     public LocationDto createLocation(CreateLocationCommand command) {
         Location location = new Location(idGenerator.incrementAndGet(), command.getName()
                 , command.getLat(), command.getLon());
+
+        locations.add(location);
 
         return modelMapper.map(location,LocationDto.class);
     }

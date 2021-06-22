@@ -31,7 +31,7 @@ public class LocationsController {
     }
 
     @PutMapping("/{id}")
-    public LocationDto updateLocation(@PathVariable("id") long id,UpdateLocationCommand command){
+    public LocationDto updateLocation(@PathVariable("id") long id,@RequestBody UpdateLocationCommand command){
         return locationsService.updateLocation(id,command);
     }
 

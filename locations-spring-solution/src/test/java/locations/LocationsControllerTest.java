@@ -5,7 +5,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -24,14 +27,19 @@ class LocationsControllerTest {
     @Test
     void getLocations() {
 
-        List<LocationDto> locationDtos = List.of(
-                new LocationDto(1L,"A",23,34)
+        List<Location> location = List.of(
+                new Location(1L,"A",23,34)
         );
 
-        when(locationsService.getLocations(Optional.of("A"))).thenReturn(locationDtos);
+        ModelMapper modelMapper = new ModelMapper();
+        Type targetListType = new TypeToken<List<LocationDto>>() {
+        }.getType();
+        List<LocationDto> locationDto = modelMapper.map(location,targetListType);
+
+        when(locationsService.getLocations(Optional.of("A"))).thenReturn(locationDto);
 
         assertThat(locationsController.getLocations(Optional.of("A"))).isEqualTo(
-                locationDtos
+                locationDto
         );
 
     }
