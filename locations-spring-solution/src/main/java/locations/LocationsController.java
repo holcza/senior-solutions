@@ -24,4 +24,19 @@ public class LocationsController {
     public LocationDto findLocationById (@PathVariable("id") long id){
         return locationsService.findLocationById(id);
     }
+
+    @PostMapping
+    public LocationDto createLocation (@RequestBody CreateLocationCommand command){
+        return locationsService.createLocation(command);
+    }
+
+    @PutMapping("/{id}")
+    public LocationDto updateLocation(@PathVariable("id") long id,UpdateLocationCommand command){
+        return locationsService.updateLocation(id,command);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteLocation (@PathVariable("id") long id){
+        locationsService.deleteLocation(id);
+    }
 }
