@@ -32,8 +32,7 @@ public class CarServiceTest {
         List<String> brands = carService.listBrands();
 
         assertThat(brands)
-                .size().isEqualTo(2);
-        assertThat(brands)
+                .hasSize(1)
                 .containsOnly("Ford");
     }
 }

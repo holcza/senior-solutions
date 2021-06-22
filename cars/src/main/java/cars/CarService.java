@@ -29,7 +29,7 @@ public class CarService {
 
     public List<String> listBrands() {
         return cars.stream()
-                .map(c->c.getBrand())
+                .map(c->c.getBrand()).distinct()
                 .collect(Collectors.toList());
     }
 }

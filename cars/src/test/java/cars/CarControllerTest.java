@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class CarControllerTest {
@@ -36,18 +36,20 @@ public class CarControllerTest {
         assertThat(cars).extracting(Car::getType)
                 .filteredOn(e->e.equals("Mondeo"))
                 .size().isEqualTo(1);
+
+        verify(carService,times(1)).listCars();
     }
 
     @Test
     void listBrands() {
 
-        when(carService.listBrands()).thenReturn(List.of("Ford","Ford"));
+        when(carService.listBrands()).thenReturn(List.of("Ford"));
 
         List<String> brands = carController.listBrands();
 
         assertThat(brands)
-                .size().isEqualTo(2);
-        assertThat(brands)
+                .hasSize(1)
                 .containsOnly("Ford");
+        verify(carService).listBrands();
     }
 }
