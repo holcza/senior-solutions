@@ -28,7 +28,7 @@ Accept: application/json
 
 {
   "name": "B",
-  "lat": 5.0,
+  "lat": 50.0,
   "lon": 72.0
 }
 
@@ -48,3 +48,14 @@ DELETE localhost:8080/locations/1
 
 ###
 DELETE localhost:8080/locations/6
+
+###
+POST localhost:8080/locations
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "B",
+  "lat": 60.0,
+  "lon": -7.0
+}
