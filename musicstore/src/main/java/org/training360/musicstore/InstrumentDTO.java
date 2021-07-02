@@ -11,8 +11,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class InstrumentDTO {
 
-    private long id;
-
     private String brand;
 
     private InstrumentType type;
