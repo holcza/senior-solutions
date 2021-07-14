@@ -48,4 +48,16 @@ public class ActivityDaoIT {
         assertNotNull(activityDao.findActivityById(activity.getId()).getUpdatedAt());
 
     }
+
+    @Test
+    public void testFindActivityByIdWithLabels(){
+        Activity activity = new Activity(LocalDateTime.now(), "A", Type.BIKING);
+        activity.setLabels(List.of("a","b"));
+        activityDao.saveActivity(activity);
+
+        Activity anotherActivity = activityDao.findActivityByIdWithLabels(activity.getId());
+
+        assertEquals(2,anotherActivity.getLabels().size());
+        assertEquals("b",anotherActivity.getLabels().get(1));
+    }
 }
