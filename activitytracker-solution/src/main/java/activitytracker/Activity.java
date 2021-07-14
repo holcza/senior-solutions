@@ -34,11 +34,11 @@ public class Activity {
     private LocalDateTime updatedAt;
 
     @ElementCollection
-    @CollectionTable(name = "labels",joinColumns = @JoinColumn(name = "activity_id"))
+    @CollectionTable(name = "labels", joinColumns = @JoinColumn(name = "activity_id"))
     @Column(name = "label")
     private List<String> labels;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "activity",orphanRemoval = true)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, mappedBy = "activity", orphanRemoval = true)
     @OrderBy("time")
     private List<TrackPoint> trackPoints;
 
@@ -111,8 +111,8 @@ public class Activity {
         return trackPoints;
     }
 
-    public void addTrackPoint (TrackPoint trackPoint){
-        if (trackPoints == null){
+    public void addTrackPoint(TrackPoint trackPoint) {
+        if (trackPoints == null) {
             trackPoints = new ArrayList<>();
         }
 
