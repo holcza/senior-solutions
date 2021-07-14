@@ -7,6 +7,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "activities")
+@NamedQuery(name = "findCoordinates", query = "select new activitytracker.Coordinate(p.lat,p.lon)" +
+        "from Activity a join a.trackPoints p where a.createdAt >:afterThis order by p.lat")
 public class Activity {
 
     @TableGenerator(name = "activity_gen",

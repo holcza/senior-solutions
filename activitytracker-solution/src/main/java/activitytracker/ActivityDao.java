@@ -72,5 +72,20 @@ public class ActivityDao {
         return activity;
     }
 
+    public List<Coordinate> findTrackPointCoordinatesByDate(LocalDateTime afterThis, int start, int max){
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        List<Coordinate> coordinates = entityManager.createNamedQuery("findCoordinates",Coordinate.class)
+                .setParameter("afterThis",afterThis)
+                .setFirstResult(start)
+                .setMaxResults(max)
+                .getResultList();
+
+        entityManager.close();
+
+        return coordinates;
+
+    }
+
 
 }
