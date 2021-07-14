@@ -38,7 +38,7 @@ public class Activity {
     @Column(name = "label")
     private List<String> labels;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "activity")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "activity",orphanRemoval = true)
     @OrderBy("time")
     private List<TrackPoint> trackPoints;
 
@@ -105,6 +105,10 @@ public class Activity {
 
     public void setLabels(List<String> labels) {
         this.labels = labels;
+    }
+
+    public List<TrackPoint> getTrackPoints() {
+        return trackPoints;
     }
 
     public void addTrackPoint (TrackPoint trackPoint){

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -59,5 +60,20 @@ public class ActivityDaoIT {
 
         assertEquals(2,anotherActivity.getLabels().size());
         assertEquals("b",anotherActivity.getLabels().get(1));
+    }
+
+    @Test
+    public void testFindActivityByIdWithTrackPoints(){
+        Activity activity = new Activity(LocalDateTime.now(), "A", Type.BIKING);
+        TrackPoint trackPoint1 = new TrackPoint(LocalDate.of(2020,10,20),45,67);
+        TrackPoint trackPoint2 = new TrackPoint(LocalDate.of(2020,10,30),50,67);
+        activity.addTrackPoint(trackPoint1);
+        activity.addTrackPoint(trackPoint2);
+        activityDao.saveActivity(activity);
+
+        Activity anotherActivity = activityDao.findActivityByIdWithTrackPoints(activity.getId());
+
+        assertEquals(2,anotherActivity.getTrackPoints().size());
+        assertEquals(50,anotherActivity.getTrackPoints().get(1).getLat());
     }
 }
