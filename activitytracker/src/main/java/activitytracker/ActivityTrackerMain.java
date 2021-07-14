@@ -11,13 +11,14 @@ public class ActivityTrackerMain {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("pu");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Activity activity1 = new Activity(LocalDateTime.now(),"A",Type.BASKETBALL);
-        Activity activity2 = new Activity(LocalDateTime.now(),"B",Type.BIKING);
+        Activity activity1 = new Activity(LocalDateTime.now(), "A", Type.BASKETBALL);
+        Activity activity2 = new Activity(LocalDateTime.now(), "B", Type.BIKING);
         entityManager.persist(activity1);
         entityManager.persist(activity2);
         entityManager.getTransaction().commit();
 
-        entityManager.close();;
+        entityManager.close();
+        ;
         entityManagerFactory.close();
     }
 }

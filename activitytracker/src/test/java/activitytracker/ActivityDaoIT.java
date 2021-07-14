@@ -9,32 +9,43 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ActivityDaoIT {
 
     ActivityDao activityDao;
 
     @BeforeEach
-    public void init(){
+    public void init() {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("pu");
         activityDao = new ActivityDao(factory);
     }
 
     @Test
-    public void TestSaveActivityAndFind (){
-        Activity activity = new Activity(LocalDateTime.now(),"A",Type.BIKING);
+    public void testSaveActivityAndFind() {
+        Activity activity = new Activity(LocalDateTime.now(), "A", Type.BIKING);
         activityDao.saveActivity(activity);
         Activity savedActivity = activityDao.findActivityById(activity.getId());
-        assertEquals("A",savedActivity.getDesc());
+        assertEquals("A", savedActivity.getDesc());
     }
 
     @Test
-    public void TestListActivities (){
-        Activity activity1 = new Activity(LocalDateTime.now(),"A",Type.BASKETBALL);
-        Activity activity2 = new Activity(LocalDateTime.now(),"B",Type.BIKING);
+    public void testListActivities() {
+        Activity activity1 = new Activity(LocalDateTime.now(), "A", Type.BASKETBALL);
+        Activity activity2 = new Activity(LocalDateTime.now(), "B", Type.BIKING);
         activityDao.saveActivity(activity1);
         activityDao.saveActivity(activity2);
         List<Activity> activities = activityDao.listActivities();
-        assertEquals("B",activities.get(1).getDesc());
+        assertEquals("B", activities.get(1).getDesc());
+    }
+
+    @Test
+    public void testUpdateActivity() {
+        Activity activity = new Activity(LocalDateTime.now(), "A", Type.BIKING);
+        activityDao.saveActivity(activity);
+        activityDao.updateActivity(activity.getId(), "B");
+        assertEquals("B", activityDao.findActivityById(activity.getId()).getDesc());
+        assertNotNull(activityDao.findActivityById(activity.getId()).getUpdatedAt());
+
     }
 }

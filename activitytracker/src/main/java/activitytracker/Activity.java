@@ -8,22 +8,28 @@ import java.time.LocalDateTime;
 public class Activity {
 
     @TableGenerator(name = "activity_gen",
-    table = "act_id_gen",
-    pkColumnName = "id_gen",
-    valueColumnName = "id_val")
+            table = "act_id_gen",
+            pkColumnName = "id_gen",
+            valueColumnName = "id_val")
     @Id
     @GeneratedValue(generator = "activity_gen")
     private Long id;
 
-    @Column(name = "start_time",nullable = false)
+    @Column(name = "start_time", nullable = false)
     private LocalDateTime startTime;
 
-    @Column(name = "description",nullable = false,length = 200)
+    @Column(name = "description", nullable = false, length = 200)
     private String desc;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false,length =20)
+    @Column(nullable = false, length = 20)
     private Type type;
+
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 
     public Activity() {
     }
@@ -64,5 +70,21 @@ public class Activity {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
